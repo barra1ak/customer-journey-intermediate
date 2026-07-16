@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Follow the Agricultural Customer Journey</title>
+
+  <style>
+    :root {
+      --purdue-black: #000000;
+      --purdue-gold: #cfb991;
+      --purdue-dark-gold: #8e6f3e;
+
+      --background: #f4f4f1;
+      --surface: #ffffff;
+      --surface-soft: #f4f1e9;
+
+      --text: #252525;
+      --muted: #5f5f5f;
+      --border: #deddd8;
+
+      --green: #397252;
+      --green-soft: #e9f4ed;
+
+      --red: #9b3f42;
+      --red-soft: #f9e9e9;
+
+      --blue: #315f82;
+      --blue-soft: #eaf3f8;
+
+      --focus: #2f6f9f;
+
+      --radius-large: 22px;
+      --radius-medium: 15px;
+      --radius-small: 9px;
+
+      --shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      overflow-wrap: anywhere;
+    }
+
+    .page-shell {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .content-width {
+      width: calc(100% - 40px);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* =========================================
+       HERO
+    ========================================== */
+
+    .hero {
+      padding: 58px 0;
+      background: var(--purdue-black);
+      color: #ffffff;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(250px, 0.75fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .module-label {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 7px 13px;
+      border: 1px solid rgba(207, 185, 145, 0.65);
+      border-radius: 999px;
+      color: var(--purdue-gold);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--purdue-dark-gold);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero .eyebrow {
+      color: var(--purdue-gold);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.3rem, 6vw, 3.8rem);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .hero-copy {
+      max-width: 610px;
+      margin: 0;
+      color: #e2e2e2;
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .hero-card {
+      padding: 26px;
+      background: var(--surface);
+      border-radius: var(--radius-large);
+      color: var(--text);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-card-number {
+      display: grid;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 17px;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--purdue-black);
+      color: var(--purdue-gold);
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .hero-card h2 {
+      font-size: 1.45rem;
+    }
+
+    .hero-stat {
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-stat:first-of-type {
+      border-top: 0;
+    }
+
+    .hero-stat-label {
+      display: block;
+      color: #777777;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-stat-value {
+      display: block;
+      margin-top: 3px;
+      font-weight: 700;
+    }
+
+    /* =========================================
+       GENERAL SECTIONS
+    ========================================== */
+
+    .lesson-section {
+      padding: 66px 0;
+    }
+
+    .lesson-section.white {
+      background: var(--surface);
+    }
+
+    .lesson-section.black {
+      background: var(--purdue-black);
+      color: #ffffff;
+    }
+
+    .section-intro {
+      max-width: 700px;
+      margin: 0 auto 36px;
+      text-align: center;
+    }
+
+    .section-intro p:last-child {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .black .section-intro p:last-child {
+      color: #cfcfcf;
+    }
+
+    .black .section-intro .eyebrow {
+      color: var(--purdue-gold);
+    }
+
+    .instruction-box {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      padding: 22px;
+      border: 1px solid #d7c9a9;
+      border-radius: var(--radius-medium);
+      background: #f7f2e6;
+    }
+
+    .instruction-box p {
+      margin: 0;
+      color: #4b4438;
+    }
+
+    .instruction-icon {
+      display: grid;
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--purdue-black);
+      color: var(--purdue-gold);
+      font-weight: 800;
+    }
+
+    /* =========================================
+       JOURNEY OVERVIEW
+    ========================================== */
+
+    .journey-overview {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .journey-overview-item {
+      position: relative;
+      padding: 18px 10px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      text-align: center;
+    }
+
+    .journey-overview-item::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      color: var(--purdue-dark-gold);
+      font-weight: 800;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .journey-overview-item:last-child::after {
+      display: none;
+    }
+
+    .journey-overview-number {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 8px;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--purdue-gold);
+      color: var(--purdue-black);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .journey-overview-item strong {
+      display: block;
+      color: var(--purdue-black);
+      font-size: 0.86rem;
+      line-height: 1.25;
+    }
+
+    /* =========================================
+       PATHWAY NAVIGATION
+    ========================================== */
+
+    .pathway-shell {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .pathway-nav {
+      position: sticky;
+      top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .pathway-nav-button {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      color: var(--text);
+      text-align: left;
+      transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .pathway-nav-button:hover {
+      transform: translateY(-2px);
+      border-color: var(--purdue-dark-gold);
+    }
+
+    .pathway-nav-button.active {
+      border-color: var(--purdue-black);
+      background: var(--purdue-black);
+      color: #ffffff;
+    }
+
+    .pathway-nav-button span {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--purdue-dark-gold);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pathway-nav-button.active span {
+      color: var(--purdue-gold);
+    }
+
+    .pathway-nav-button strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    /* =========================================
+       STAGE PANEL
+    ========================================== */
+
+    .stage-panel {
+      min-height: 700px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-large);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .stage-header {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .stage-number {
+      display: grid;
+      flex: 0 0 58px;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--purdue-black);
+      color: var(--purdue-gold);
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .stage-header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .customer-thought {
+      margin-bottom: 24px;
+      padding: 23px;
+      border-left: 6px solid var(--purdue-gold);
+      border-radius: 0 15px 15px 0;
+      background: var(--surface-soft);
+    }
+
+    .customer-thought-label {
+      margin: 0 0 6px;
+      color: var(--purdue-dark-gold);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .customer-thought p:last-child {
+      margin: 0;
+      font-size: 1.22rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .stage-insights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stage-insight {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-medium);
+      background: #fafafa;
+    }
+
+    .stage-insight h3 {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 1rem;
+    }
+
+    .stage-insight p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .key-term-connection {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: var(--radius-medium);
+      background: var(--blue-soft);
+      color: #244b67;
+    }
+
+    .key-term-connection strong {
+      color: #173b55;
+    }
+
+    /* =========================================
+       STAGE QUESTION
+    ========================================== */
+
+    .stage-question {
+      margin-top: 24px;
+      padding: 23px;
+      border-radius: var(--radius-large);
+      background: var(--purdue-black);
+      color: #ffffff;
+    }
+
+    .stage-question h3 {
+      margin-bottom: 14px;
+      font-size: 1.1rem;
+    }
+
+    .answer-options {
+      display: grid;
+      gap: 11px;
+    }
+
+    .answer-option {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #454545;
+      border-radius: 12px;
+      background: #181818;
+      color: #ffffff;
+      text-align: left;
+      transition:
+        border-color 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .answer-option:hover {
+      border-color: var(--purdue-gold);
+      background: #242424;
+    }
+
+    .answer-option.correct {
+      border-color: #72b38a;
+      background: #193727;
+    }
+
+    .answer-option.incorrect {
+      border-color: #cf8487;
+      background: #3b2021;
+    }
+
+    .stage-feedback {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #191919;
+      color: #dddddd;
+    }
+
+    .stage-feedback.show {
+      display: block;
+    }
+
+    .stage-feedback strong {
+      color: var(--purdue-gold);
+    }
+
+    .stage-navigation {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .nav-button {
+      min-height: 45px;
+      padding: 11px 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--purdue-black);
+      font-weight: 800;
+    }
+
+    .nav-button.primary {
+      border-color: var(--purdue-black);
+      background: var(--purdue-black);
+      color: #ffffff;
+    }
+
+    .nav-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    /* =========================================
+       PROGRESS
+    ========================================== */
+
+    .progress-wrap {
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: var(--radius-large);
+      background: #e8e2d5;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .progress-track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.14);
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--purdue-black);
+      transition: width 0.35s ease;
+    }
+
+    .progress-message {
+      display: none;
+      margin: 15px 0 0;
+      color: #403522;
+      font-weight: 700;
+    }
+
+    .progress-message.show {
+      display: block;
+    }
+
+    /* =========================================
+       ORDER ACTIVITY
+    ========================================== */
+
+    .order-panel {
+      padding: 32px;
+      border: 1px solid #3e3e3e;
+      border-radius: var(--radius-large);
+      background: #111111;
+    }
+
+    .order-instructions {
+      margin: 0 0 22px;
+      color: #d0d0d0;
+    }
+
+    .order-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .order-item {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #464646;
+      border-radius: 14px;
+      background: #1b1b1b;
+    }
+
+    .order-item.correct {
+      border-color: #72b38a;
+      background: #173326;
+    }
+
+    .order-item.incorrect {
+      border-color: #cf8487;
+      background: #392122;
+    }
+
+    .order-select {
+      width: 54px;
+      height: 44px;
+      border: 1px solid #777777;
+      border-radius: 9px;
+      background: #ffffff;
+      color: var(--purdue-black);
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .order-item strong {
+      color: #ffffff;
+    }
+
+    .order-item p {
+      margin: 3px 0 0;
+      color: #bdbdbd;
+      font-size: 0.9rem;
+    }
+
+    .activity-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .action-button {
+      min-height: 46px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .action-button.gold {
+      border: 1px solid var(--purdue-gold);
+      background: var(--purdue-gold);
+      color: var(--purdue-black);
+    }
+
+    .action-button.outline {
+      border: 1px solid #777777;
+      background: transparent;
+      color: #ffffff;
+    }
+
+    .order-feedback {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .order-feedback.show {
+      display: block;
+    }
+
+    .order-feedback.success {
+      border: 1px solid #78b991;
+      background: #173326;
+      color: #dff6e7;
+    }
+
+    .order-feedback.error {
+      border: 1px solid #cf8487;
+      background: #392122;
+      color: #f8dddd;
+    }
+
+    /* =========================================
+       TAKEAWAYS
+    ========================================== */
+
+    .takeaway-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .takeaway-card {
+      padding: 23px;
+      border-top: 5px solid var(--purdue-gold);
+      border-radius: var(--radius-medium);
+      background: var(--surface-soft);
+    }
+
+    .takeaway-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer {
+      padding: 24px 20px;
+      background: var(--purdue-black);
+      color: #aaaaaa;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================== */
+
+    @media (max-width: 800px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .journey-overview {
+        grid-template-columns: 1fr;
+      }
+
+      .journey-overview-item {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+      }
+
+      .journey-overview-item::after {
+        content: "↓";
+        top: auto;
+        right: 50%;
+        bottom: -16px;
+        transform: translateX(50%);
+      }
+
+      .journey-overview-number {
+        margin: 0;
+      }
+
+      .pathway-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .pathway-nav {
+        position: static;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stage-panel {
+        min-height: 0;
+      }
+
+      .takeaway-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .content-width {
+        width: calc(100% - 28px);
+      }
+
+      .hero {
+        padding: 44px 0;
+      }
+
+      .lesson-section {
+        padding: 52px 0;
+      }
+
+      .pathway-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-panel,
+      .order-panel {
+        padding: 22px;
+      }
+
+      .stage-insights {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-header {
+        align-items: flex-start;
+      }
+
+      .stage-navigation {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .nav-button {
+        width: 100%;
+      }
+
+      .progress-header {
+        display: block;
+      }
+
+      .progress-header span {
+        display: block;
+      }
+
+      .progress-header span:last-child {
+        margin-top: 4px;
+      }
+
+      .order-item {
+        grid-template-columns: 48px minmax(0, 1fr);
+      }
+
+      .order-select {
+        width: 48px;
+      }
+
+      .activity-actions {
+        display: grid;
+      }
+
+      .action-button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .progress-bar,
+      .pathway-nav-button {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page-shell">
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <section class="hero">
+      <div class="content-width hero-layout">
+
+        <div>
+          <div class="module-label">
+            Module 1 Guided Learning Activity
+          </div>
+
+          <p class="eyebrow">The Customer Experience</p>
+
+          <h1>Follow the Agricultural Customer Journey</h1>
+
+          <p class="hero-copy">
+            A customer’s experience does not begin when an order is placed—or
+            end when a product is delivered. Follow one agricultural customer
+            from initial planning through in-season support, outcome review and
+            renewal.
+          </p>
+        </div>
+
+        <aside class="hero-card" aria-label="Lesson overview">
+
+          <div class="hero-card-number">02</div>
+
+          <h2>Lesson at a Glance</h2>
+
+          <div class="hero-stat">
+            <span class="hero-stat-label">Estimated Time</span>
+            <span class="hero-stat-value">15–20 minutes</span>
+          </div>
+
+          <div class="hero-stat">
+            <span class="hero-stat-label">Journey Stages</span>
+            <span class="hero-stat-value">7 stages across the year</span>
+          </div>
+
+          <div class="hero-stat">
+            <span class="hero-stat-label">Activities</span>
+            <span class="hero-stat-value">
+              Explore, decide and sequence
+            </span>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================
+         INTRODUCTION
+    ====================================== -->
+
+    <section class="lesson-section">
+      <div class="content-width">
+
+        <div class="section-intro">
+          <p class="eyebrow">The Big Idea</p>
+
+          <h2>The sale is one moment in a much larger relationship.</h2>
+
+          <p>
+            Agricultural customers often begin planning months before they
+            purchase. Their experience continues through delivery, changing
+            field conditions, technical support, performance evaluation and
+            preparation for the following season.
+          </p>
+        </div>
+
+        <div class="instruction-box">
+
+          <div class="instruction-icon" aria-hidden="true">
+            1
+          </div>
+
+          <p>
+            <strong>First, preview the pathway.</strong> Then move through each
+            stage to see what the customer is doing, thinking and experiencing
+            at that point in the relationship.
+          </p>
+
+        </div>
+
+
+        <div
+          class="journey-overview"
+          aria-label="Agricultural customer journey overview"
+        >
+
+          <div class="journey-overview-item">
+            <div class="journey-overview-number">1</div>
+            <strong>Recognize the Need</strong>
+          </div>
+
+          <div class="journey-overview-item">
+            <div class="journey-overview-number">2</div>
+            <strong>Research Options</strong>
+          </div>
+
+          <div class="journey-overview-item">
+            <div class="journey-overview-number">3</div>
+            <strong>Decide</strong>
+          </div>
+
+          <div class="journey-overview-item">
+            <div class="journey-overview-number">4</div>
+            <strong>Purchase &amp; Coordinate</strong>
+          </div>
+
+          <div class="journey-overview-item">
+            <div class="journey-overview-number">5</div>
+            <strong>Use &amp; Receive Support</strong>
+          </div>
+
+          <div class="journey-overview-item">
+            <div class="journey-overview-number">6</div>
+            <strong>Review Outcomes</strong>
+          </div>
+
+          <div class="journey-overview-item">
+            <div class="journey-overview-number">7</div>
+            <strong>Renew or Change</strong>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================
+         INTERACTIVE PATHWAY
+    ====================================== -->
+
+    <section class="lesson-section white" id="pathway">
+      <div class="content-width">
+
+        <div class="section-intro">
+          <p class="eyebrow">Explore the Pathway</p>
+
+          <h2>Walk through the customer’s year.</h2>
+
+          <p>
+            Select a stage or use the Previous and Next buttons. Answer the
+            question at each stage to apply what you are learning.
+          </p>
+        </div>
+
+
+        <div class="pathway-shell">
+
+          <nav
+            class="pathway-nav"
+            id="pathwayNav"
+            aria-label="Customer journey stages"
+          ></nav>
+
+
+          <section
+            class="stage-panel"
+            id="stagePanel"
+            aria-live="polite"
+          >
+
+            <div class="stage-header">
+
+              <div class="stage-number" id="stageNumber">
+                1
+              </div>
+
+              <div>
+                <p class="eyebrow" id="stageSeason">
+                  Pre-Sale
+                </p>
+
+                <h2 id="stageTitle">
+                  Recognize the Need
+                </h2>
+
+                <p id="stageSubtitle"></p>
+              </div>
+
+            </div>
+
+
+            <div class="customer-thought">
+
+              <p class="customer-thought-label">
+                What the customer may be thinking
+              </p>
+
+              <p id="stageThought"></p>
+
+            </div>
+
+
+            <div class="stage-insights">
+
+              <article class="stage-insight">
+                <h3>🌱 What the Customer Is Doing</h3>
+                <p id="stageDoing"></p>
+              </article>
+
+              <article class="stage-insight">
+                <h3>🌦️ Agricultural Pressures</h3>
+                <p id="stagePressure"></p>
+              </article>
+
+              <article class="stage-insight">
+                <h3>⚠️ Possible Friction</h3>
+                <p id="stageFriction"></p>
+              </article>
+
+              <article class="stage-insight">
+                <h3>✓ Experience Opportunity</h3>
+                <p id="stageOpportunity"></p>
+              </article>
+
+            </div>
+
+
+            <div class="key-term-connection" id="termConnection"></div>
+
+
+            <div class="stage-question">
+
+              <h3 id="questionText"></h3>
+
+              <div
+                class="answer-options"
+                id="answerOptions"
+              ></div>
+
+              <div
+                class="stage-feedback"
+                id="stageFeedback"
+                role="status"
+                aria-live="polite"
+              ></div>
+
+            </div>
+
+
+            <div class="stage-navigation">
+
+              <button
+                class="nav-button"
+                id="previousStage"
+                type="button"
+              >
+                ← Previous Stage
+              </button>
+
+              <button
+                class="nav-button primary"
+                id="nextStage"
+                type="button"
+              >
+                Next Stage →
+              </button>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <div class="progress-wrap" aria-live="polite">
+
+          <div class="progress-header">
+            <span>Journey Exploration Progress</span>
+            <span id="progressText">0 of 7 stages completed</span>
+          </div>
+
+          <div
+            class="progress-track"
+            id="progressTrack"
+            role="progressbar"
+            aria-label="Journey exploration progress"
+            aria-valuemin="0"
+            aria-valuemax="7"
+            aria-valuenow="0"
+          >
+            <div
+              class="progress-bar"
+              id="progressBar"
+            ></div>
+          </div>
+
+          <p
+            class="progress-message"
+            id="progressMessage"
+          >
+            You have completed every stage. Continue to the final sequencing
+            activity below.
+          </p>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================
+         FINAL SEQUENCING ACTIVITY
+    ====================================== -->
+
+    <section class="lesson-section black">
+      <div class="content-width">
+
+        <div class="section-intro">
+
+          <p class="eyebrow">Final Activity</p>
+
+          <h2>Put the agricultural customer journey in order.</h2>
+
+          <p>
+            Enter a number from 1 through 7 next to each event. Each number
+            should be used once.
+          </p>
+
+        </div>
+
+
+        <div class="order-panel">
+
+          <p class="order-instructions">
+            Think about how a typical agricultural relationship develops over
+            the course of a season. Planning begins before the order, while
+            support and evaluation continue long afterward.
+          </p>
+
+
+          <div class="order-list">
+
+            <div class="order-item" data-order-item>
+
+              <select
+                class="order-select"
+                aria-label="Order for post-season outcome review"
+                data-correct-order="6"
+              >
+                <option value="">—</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+
+              <div>
+                <strong>Post-season outcome review</strong>
+                <p>
+                  The customer reflects on results, service and unresolved
+                  issues.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="order-item" data-order-item>
+
+              <select
+                class="order-select"
+                aria-label="Order for initial planning conversation"
+                data-correct-order="1"
+              >
+                <option value="">—</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+
+              <div>
+                <strong>Initial planning conversation</strong>
+                <p>
+                  The customer identifies goals, risks, needs and possible
+                  changes.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="order-item" data-order-item>
+
+              <select
+                class="order-select"
+                aria-label="Order for in-season support request"
+                data-correct-order="5"
+              >
+                <option value="">—</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+
+              <div>
+                <strong>In-season support request</strong>
+                <p>
+                  Field conditions change and the customer needs timely help.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="order-item" data-order-item>
+
+              <select
+                class="order-select"
+                aria-label="Order for comparison of products and programs"
+                data-correct-order="2"
+              >
+                <option value="">—</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+
+              <div>
+                <strong>Comparison of products and programs</strong>
+                <p>
+                  The customer evaluates fit, price, support, timing and risk.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="order-item" data-order-item>
+
+              <select
+                class="order-select"
+                aria-label="Order for recommendation and customer decision"
+                data-correct-order="3"
+              >
+                <option value="">—</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+
+              <div>
+                <strong>Recommendation and customer decision</strong>
+                <p>
+                  The customer decides whether the recommendation is credible,
+                  valuable and appropriate.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="order-item" data-order-item>
+
+              <select
+                class="order-select"
+                aria-label="Order for order and delivery coordination"
+                data-correct-order="4"
+              >
+                <option value="">—</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+
+              <div>
+                <strong>Order and delivery coordination</strong>
+                <p>
+                  The customer needs confirmation, visibility and clear next
+                  steps.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="order-item" data-order-item>
+
+              <select
+                class="order-select"
+                aria-label="Order for renewal recommendation"
+                data-correct-order="7"
+              >
+                <option value="">—</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+
+              <div>
+                <strong>Renewal recommendation</strong>
+                <p>
+                  The organization uses the year’s experience to improve the
+                  next plan.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="activity-actions">
+
+            <button
+              class="action-button gold"
+              id="checkOrder"
+              type="button"
+            >
+              Check My Sequence
+            </button>
+
+            <button
+              class="action-button outline"
+              id="resetOrder"
+              type="button"
+            >
+              Reset Activity
+            </button>
+
+          </div>
+
+
+          <div
+            class="order-feedback"
+            id="orderFeedback"
+            role="status"
+            aria-live="polite"
+          ></div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================
+         TAKEAWAYS
+    ====================================== -->
+
+    <section class="lesson-section white">
+      <div class="content-width">
+
+        <div class="section-intro">
+
+          <p class="eyebrow">Key Takeaways</p>
+
+          <h2>The customer journey follows the agricultural year.</h2>
+
+          <p>
+            Carry these ideas into the final Customer Journey Lab.
+          </p>
+
+        </div>
+
+
+        <div class="takeaway-grid">
+
+          <article class="takeaway-card">
+            <h3>The Journey Begins Early</h3>
+
+            <p>
+              Customer experience starts during planning, problem recognition
+              and initial research—not when the order form appears.
+            </p>
+          </article>
+
+          <article class="takeaway-card">
+            <h3>Support Shapes Trust</h3>
+
+            <p>
+              Delivery visibility, changing field conditions and responsive
+              in-season support often matter as much as the original product
+              recommendation.
+            </p>
+          </article>
+
+          <article class="takeaway-card">
+            <h3>Renewal Is Earned</h3>
+
+            <p>
+              A thoughtful post-season review connects outcomes, friction and
+              relationship memory to the following year’s plan.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      Module 1: The Customer Experience · Follow the Agricultural Customer
+      Journey
+    </footer>
+
+  </main>
+
+
+  <script>
+    (function () {
+      "use strict";
+
+      const stages = [
+        {
+          title: "Recognize the Need",
+          season: "Stage 1 · Early Planning",
+          subtitle:
+            "The customer senses a problem, opportunity or seasonal need before actively shopping.",
+          thought:
+            "What needs to change next season—and what could happen if I make the wrong decision?",
+          doing:
+            "Reviewing the previous season, identifying production goals, considering field conditions, estimating costs and discussing priorities.",
+          pressure:
+            "Weather uncertainty, crop rotation, budget limits, changing markets, field history and risk tolerance can all influence the need.",
+          friction:
+            "The organization begins selling before fully understanding the customer’s operation, goals or concerns.",
+          opportunity:
+            "Ask thoughtful questions and help the customer define the problem before recommending a solution.",
+          term:
+            "<strong>Key-term connection:</strong> This stage begins the <strong>customer journey</strong>. The first touchpoint may be a planning conversation rather than a sales interaction.",
+          question:
+            "What is the strongest first response when a customer says they may need to change part of their program?",
+          answers: [
+            {
+              text: "Immediately recommend the company’s featured product.",
+              correct: false,
+              feedback:
+                "That may move too quickly. The recommendation should follow an understanding of the customer’s goals, constraints and concerns."
+            },
+            {
+              text: "Ask about goals, field history, risk and what prompted the possible change.",
+              correct: true,
+              feedback:
+                "Correct. Good customer experience begins by understanding context before offering a solution."
+            },
+            {
+              text: "Send a price sheet without discussing the operation.",
+              correct: false,
+              feedback:
+                "Pricing may eventually matter, but it does not clarify what the customer actually needs."
+            }
+          ]
+        },
+
+        {
+          title: "Research and Consider Options",
+          season: "Stage 2 · Pre-Sale Evaluation",
+          subtitle:
+            "The customer gathers information and compares possible ways to address the need.",
+          thought:
+            "Which option fits my operation, my risk tolerance and the realities of this season?",
+          doing:
+            "Speaking with dealers or representatives, comparing programs, reviewing local performance and seeking opinions from trusted peers.",
+          pressure:
+            "The customer must consider price, availability, timing, financing, service, product fit and the consequences of a poor decision.",
+          friction:
+            "Information is overly technical, comparisons are unclear or the customer is expected to evaluate options using price alone.",
+          opportunity:
+            "Explain tradeoffs clearly and connect each option to the customer’s specific goals and operating conditions.",
+          term:
+            "<strong>Key-term connection:</strong> Every conversation, comparison chart and website visit is a <strong>touchpoint</strong> that shapes confidence.",
+          question:
+            "Which comparison would be most useful to an agricultural customer?",
+          answers: [
+            {
+              text: "A comparison of price only.",
+              correct: false,
+              feedback:
+                "Price matters, but it does not explain fit, timing, support or risk."
+            },
+            {
+              text: "A comparison of product fit, cost, availability, support and major tradeoffs.",
+              correct: true,
+              feedback:
+                "Correct. Agricultural value is contextual and rarely determined by price alone."
+            },
+            {
+              text: "A list of technical specifications with no explanation.",
+              correct: false,
+              feedback:
+                "Specifications can help, but customers need interpretation that connects the information to their operation."
+            }
+          ]
+        },
+
+        {
+          title: "Recommendation and Decision",
+          season: "Stage 3 · Commitment Decision",
+          subtitle:
+            "The customer determines whether the recommendation is credible and worth the risk.",
+          thought:
+            "Do I trust this recommendation—and will the organization support me after I say yes?",
+          doing:
+            "Evaluating the recommendation, asking final questions, discussing financing or timing and deciding whether to commit.",
+          pressure:
+            "The customer may be balancing significant cost, uncertain conditions, limited availability and a narrow seasonal window.",
+          friction:
+            "The recommendation feels generic, overconfident or disconnected from the customer’s questions and concerns.",
+          opportunity:
+            "Explain why the recommendation fits, acknowledge uncertainty and clarify what support will be available after purchase.",
+          term:
+            "<strong>Key-term connection:</strong> This can be a <strong>moment of truth</strong> because the customer is deciding whether the organization is credible and trustworthy.",
+          question:
+            "What most strengthens confidence during the decision stage?",
+          answers: [
+            {
+              text: "Guaranteeing that nothing will go wrong.",
+              correct: false,
+              feedback:
+                "Agriculture includes too much uncertainty for unrealistic promises. Honest expectation setting builds more trust."
+            },
+            {
+              text: "Explaining fit, tradeoffs, limits and the support available if conditions change.",
+              correct: true,
+              feedback:
+                "Correct. Confidence comes from clarity, credibility and realistic support—not from pretending risk does not exist."
+            },
+            {
+              text: "Pressuring the customer to decide before asking questions.",
+              correct: false,
+              feedback:
+                "Pressure may weaken trust and make the interaction feel transactional."
+            }
+          ]
+        },
+
+        {
+          title: "Purchase and Coordination",
+          season: "Stage 4 · Sale and Execution",
+          subtitle:
+            "The customer has committed and now needs confidence that the promise will be carried out.",
+          thought:
+            "Will the correct product arrive when and where I need it—and will someone tell me if anything changes?",
+          doing:
+            "Confirming the order, arranging delivery, preparing labor or equipment and coordinating around weather and production windows.",
+          pressure:
+            "Availability changes, transportation delays, substitutions, narrow field windows and multiple handoffs can create anxiety.",
+          friction:
+            "The order is unclear, the customer receives conflicting information or no one provides proactive delivery updates.",
+          opportunity:
+            "Provide a clean confirmation, realistic timeline, clear contact path and immediate communication when something changes.",
+          term:
+            "<strong>Key-term connection:</strong> Missing updates, repeated calls and unclear ownership create <strong>customer friction</strong>.",
+          question:
+            "A customer has placed an order but does not yet have a confirmed delivery time. What is the strongest response?",
+          answers: [
+            {
+              text: "Wait until every detail is known before communicating.",
+              correct: false,
+              feedback:
+                "Silence can increase stress. The customer benefits from knowing what is confirmed, what remains uncertain and when the next update will arrive."
+            },
+            {
+              text: "Explain what is known, what is still being confirmed and when the next update will be provided.",
+              correct: true,
+              feedback:
+                "Correct. Proactive expectation setting reduces friction even when the final answer is not yet available."
+            },
+            {
+              text: "Ask the customer to keep calling until someone has an answer.",
+              correct: false,
+              feedback:
+                "That places unnecessary effort on the customer and creates more friction."
+            }
+          ]
+        },
+
+        {
+          title: "In-Season Use and Support",
+          season: "Stage 5 · Post-Sale and In-Season",
+          subtitle:
+            "The product or service is now being used while conditions continue to change.",
+          thought:
+            "What happens if the original plan no longer fits what I am seeing in the field?",
+          doing:
+            "Using the product, monitoring results, adjusting to weather or pest pressure and seeking guidance when questions arise.",
+          pressure:
+            "Weather, labor, crop stage, equipment, pests, timing and local conditions can quickly change the situation.",
+          friction:
+            "Support is slow, generic, difficult to access or focused on defending the product instead of understanding the concern.",
+          opportunity:
+            "Respond quickly, listen carefully, document the issue and define a practical next step.",
+          term:
+            "<strong>Key-term connection:</strong> The help provided after purchase is <strong>post-sale support</strong>. A strong response when something goes wrong is <strong>service recovery</strong>.",
+          question:
+            "A customer calls with a field-performance concern. What should happen first?",
+          answers: [
+            {
+              text: "Defend the product before hearing the details.",
+              correct: false,
+              feedback:
+                "That may make the customer feel dismissed. The organization should understand the issue before drawing conclusions."
+            },
+            {
+              text: "Listen, document the facts and establish the next support step.",
+              correct: true,
+              feedback:
+                "Correct. Strong support begins with clarity, ownership and a practical next step."
+            },
+            {
+              text: "Tell the customer to wait until the end of the season.",
+              correct: false,
+              feedback:
+                "Some issues require timely investigation, documentation or action."
+            }
+          ]
+        },
+
+        {
+          title: "Outcome Review",
+          season: "Stage 6 · Post-Season Evaluation",
+          subtitle:
+            "The customer considers both the results and the experience surrounding those results.",
+          thought:
+            "Did the solution perform—and was this organization easy and reliable to work with?",
+          doing:
+            "Reviewing performance, costs, service, delivery reliability, communication and the way difficult moments were handled.",
+          pressure:
+            "The customer may be processing mixed results, market conditions and memories of frustrating moments across the year.",
+          friction:
+            "The organization focuses only on product performance or avoids discussing communication and service problems.",
+          opportunity:
+            "Review outcomes honestly, acknowledge friction and identify what should be improved before the next season.",
+          term:
+            "<strong>Key-term connection:</strong> Remembering earlier concerns and using them in the next conversation demonstrates <strong>relationship memory</strong>.",
+          question:
+            "What should a strong post-season review include?",
+          answers: [
+            {
+              text: "Only whether the customer plans to reorder.",
+              correct: false,
+              feedback:
+                "That makes the conversation feel transactional and misses important learning."
+            },
+            {
+              text: "Results, service experiences, unresolved friction and lessons for the next season.",
+              correct: true,
+              feedback:
+                "Correct. A useful review connects outcomes and experience to improvement."
+            },
+            {
+              text: "Only positive moments from the season.",
+              correct: false,
+              feedback:
+                "Avoiding problems prevents the organization from learning and may leave frustration unresolved."
+            }
+          ]
+        },
+
+        {
+          title: "Renewal and Advocacy",
+          season: "Stage 7 · Renewal Loop",
+          subtitle:
+            "The customer chooses whether to continue, adjust, reduce or end the relationship.",
+          thought:
+            "Did this organization learn from the year—and do I want to work with them again?",
+          doing:
+            "Comparing the overall experience, considering adjustments and deciding whether to renew or recommend the organization.",
+          pressure:
+            "The customer is balancing results, price, trust, service, remembered friction and alternative options.",
+          friction:
+            "The renewal conversation starts from scratch or focuses only on securing another order.",
+          opportunity:
+            "Use the year’s learning to create a better next-season plan and demonstrate that the relationship has continuity.",
+          term:
+            "<strong>Key-term connection:</strong> Turning one year’s experience into a stronger next plan creates a <strong>renewal loop</strong>.",
+          question:
+            "What makes a renewal conversation feel earned?",
+          answers: [
+            {
+              text: "Beginning with the new order form.",
+              correct: false,
+              feedback:
+                "That may overlook the customer’s actual experience and make the relationship feel transactional."
+            },
+            {
+              text: "Reviewing what happened, showing what was learned and building an improved plan.",
+              correct: true,
+              feedback:
+                "Correct. Renewal is strongest when it reflects relationship memory and meaningful improvement."
+            },
+            {
+              text: "Avoiding any discussion of problems from the prior year.",
+              correct: false,
+              feedback:
+                "Unresolved friction can reduce confidence and eventually lead the customer to change suppliers."
+            }
+          ]
+        }
+      ];
+
+
+      const pathwayNav = document.getElementById("pathwayNav");
+
+      const stageNumber = document.getElementById("stageNumber");
+      const stageSeason = document.getElementById("stageSeason");
+      const stageTitle = document.getElementById("stageTitle");
+      const stageSubtitle = document.getElementById("stageSubtitle");
+      const stageThought = document.getElementById("stageThought");
+      const stageDoing = document.getElementById("stageDoing");
+      const stagePressure = document.getElementById("stagePressure");
+      const stageFriction = document.getElementById("stageFriction");
+      const stageOpportunity = document.getElementById("stageOpportunity");
+      const termConnection = document.getElementById("termConnection");
+
+      const questionText = document.getElementById("questionText");
+      const answerOptions = document.getElementById("answerOptions");
+      const stageFeedback = document.getElementById("stageFeedback");
+
+      const previousStage = document.getElementById("previousStage");
+      const nextStage = document.getElementById("nextStage");
+
+      const progressText = document.getElementById("progressText");
+      const progressBar = document.getElementById("progressBar");
+      const progressTrack = document.getElementById("progressTrack");
+      const progressMessage = document.getElementById("progressMessage");
+
+      let activeStage = 0;
+      const completedStages = new Set();
+
+
+      function renderNavigation() {
+        pathwayNav.innerHTML = stages.map(function (stage, index) {
+          const activeClass = index === activeStage ? " active" : "";
+
+          return (
+            '<button class="pathway-nav-button' +
+            activeClass +
+            '" type="button" data-stage="' +
+            index +
+            '">' +
+            "<span>Stage " +
+            (index + 1) +
+            "</span>" +
+            "<strong>" +
+            stage.title +
+            "</strong>" +
+            "</button>"
+          );
+        }).join("");
+      }
+
+
+      function renderStage() {
+        const stage = stages[activeStage];
+
+        stageNumber.textContent = String(activeStage + 1);
+        stageSeason.textContent = stage.season;
+        stageTitle.textContent = stage.title;
+        stageSubtitle.textContent = stage.subtitle;
+
+        stageThought.textContent = stage.thought;
+        stageDoing.textContent = stage.doing;
+        stagePressure.textContent = stage.pressure;
+        stageFriction.textContent = stage.friction;
+        stageOpportunity.textContent = stage.opportunity;
+
+        termConnection.innerHTML = stage.term;
+        questionText.textContent = stage.question;
+
+        answerOptions.innerHTML = stage.answers.map(function (answer, index) {
+          return (
+            '<button class="answer-option" type="button" data-answer="' +
+            index +
+            '">' +
+            answer.text +
+            "</button>"
+          );
+        }).join("");
+
+        stageFeedback.className = "stage-feedback";
+        stageFeedback.innerHTML = "";
+
+        previousStage.disabled = activeStage === 0;
+        nextStage.disabled = activeStage === stages.length - 1;
+
+        renderNavigation();
+      }
+
+
+      function updateProgress() {
+        const completed = completedStages.size;
+        const total = stages.length;
+
+        const percent = total > 0
+          ? (completed / total) * 100
+          : 0;
+
+        progressText.textContent =
+          completed + " of " + total + " stages completed";
+
+        progressBar.style.width = percent + "%";
+
+        progressTrack.setAttribute(
+          "aria-valuenow",
+          String(completed)
+        );
+
+        if (completed === total) {
+          progressMessage.classList.add("show");
+        }
+      }
+
+
+      pathwayNav.addEventListener("click", function (event) {
+        const button = event.target.closest("[data-stage]");
+
+        if (!button) {
+          return;
+        }
+
+        activeStage = Number(button.dataset.stage);
+        renderStage();
+      });
+
+
+      previousStage.addEventListener("click", function () {
+        if (activeStage > 0) {
+          activeStage -= 1;
+          renderStage();
+        }
+      });
+
+
+      nextStage.addEventListener("click", function () {
+        if (activeStage < stages.length - 1) {
+          activeStage += 1;
+          renderStage();
+        }
+      });
+
+
+      answerOptions.addEventListener("click", function (event) {
+        const button = event.target.closest("[data-answer]");
+
+        if (!button) {
+          return;
+        }
+
+        const answerIndex = Number(button.dataset.answer);
+        const answer = stages[activeStage].answers[answerIndex];
+
+        const allButtons = answerOptions.querySelectorAll(
+          ".answer-option"
+        );
+
+        allButtons.forEach(function (item) {
+          item.classList.remove("correct", "incorrect");
+        });
+
+        if (answer.correct) {
+          button.classList.add("correct");
+
+          stageFeedback.innerHTML =
+            "<strong>Strong choice.</strong> " +
+            answer.feedback;
+
+          completedStages.add(activeStage);
+          updateProgress();
+        } else {
+          button.classList.add("incorrect");
+
+          stageFeedback.innerHTML =
+            "<strong>Consider another response.</strong> " +
+            answer.feedback;
+        }
+
+        stageFeedback.classList.add("show");
+      });
+
+
+      /* =====================================
+         ORDER ACTIVITY
+      ====================================== */
+
+      const orderItems = Array.from(
+        document.querySelectorAll("[data-order-item]")
+      );
+
+      const checkOrder = document.getElementById("checkOrder");
+      const resetOrder = document.getElementById("resetOrder");
+      const orderFeedback = document.getElementById("orderFeedback");
+
+
+      checkOrder.addEventListener("click", function () {
+        let correctCount = 0;
+        let unansweredCount = 0;
+
+        orderItems.forEach(function (item) {
+          const select = item.querySelector(".order-select");
+
+          const selectedValue = select.value;
+          const correctValue = select.dataset.correctOrder;
+
+          item.classList.remove("correct", "incorrect");
+
+          if (!selectedValue) {
+            unansweredCount += 1;
+            item.classList.add("incorrect");
+            return;
+          }
+
+          if (selectedValue === correctValue) {
+            correctCount += 1;
+            item.classList.add("correct");
+          } else {
+            item.classList.add("incorrect");
+          }
+        });
+
+        orderFeedback.className = "order-feedback show";
+
+        if (correctCount === orderItems.length) {
+          orderFeedback.classList.add("success");
+
+          orderFeedback.textContent =
+            "Excellent. You placed all seven stages in the correct order. " +
+            "The sale is only one point within a relationship that begins " +
+            "during planning and continues through renewal.";
+        } else {
+          orderFeedback.classList.add("error");
+
+          if (unansweredCount > 0) {
+            orderFeedback.textContent =
+              "You correctly placed " +
+              correctCount +
+              " of " +
+              orderItems.length +
+              " events. Complete every row and review the highlighted items.";
+          } else {
+            orderFeedback.textContent =
+              "You correctly placed " +
+              correctCount +
+              " of " +
+              orderItems.length +
+              " events. Review the highlighted items and try again.";
+          }
+        }
+      });
+
+
+      resetOrder.addEventListener("click", function () {
+        orderItems.forEach(function (item) {
+          item.classList.remove("correct", "incorrect");
+
+          const select = item.querySelector(".order-select");
+          select.value = "";
+        });
+
+        orderFeedback.className = "order-feedback";
+        orderFeedback.textContent = "";
+      });
+
+
+      renderStage();
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
